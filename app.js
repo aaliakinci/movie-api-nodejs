@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const movie = require('./routes/movie');
+const director = require('./routes/director');
 const app = express();
 
 
@@ -26,16 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/api/movie', movie);
+app.use('/api/movies', movie);
+app.use('/api/directors', director);
 
-
-
-
-// app.use(function (req, res) {
-//   res.setHeader('Content-Type', 'text/plain')
-//   res.write('you posted:\n')
-//   res.end(JSON.stringify(req.body, null, 2))
-// })
 
 
 
@@ -53,7 +47,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json({error:err.message});
 });
 
 module.exports = app;
