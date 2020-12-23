@@ -1,2 +1,2 @@
 # movie-api-nodejs
-NodeJs ile Movie API
+Proje NodeJs ile eğitim amaçlı bir api oluşturulmasını içerir.
