@@ -8,15 +8,21 @@ const movie = require('./routes/movie');
 const director = require('./routes/director');
 const app = express();
 
+//Config
+const config=require('./config');
 
 //db connection
 const db = require('./helper/db')();
 
 
+//Middleware
+const verifyToken = require('./middleware/verify-token');
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
+app.set('api_secret_key',config.api_secret_key)
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -27,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
+app.use('/api',verifyToken);
 app.use('/api/movies', movie);
 app.use('/api/directors', director);
 
